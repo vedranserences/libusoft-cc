@@ -1,2 +1,2 @@
 # libusoft-cc
-Libusoft Code Chanllenge
+Libusoft Code Challenge
