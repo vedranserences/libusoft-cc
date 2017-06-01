@@ -69,7 +69,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			}
 
 			ScaleCapsuleForCrouching(crouch);
-			PreventStandingInLowHeadroom();
+			//PreventStandingInLowHeadroom();
 
 			// send input and other state parameters to the animator
 			UpdateAnimator(move);
@@ -180,7 +180,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		{
 			// help the character turn faster (this is in addition to root rotation in the animation)
 			float turnSpeed = Mathf.Lerp(m_StationaryTurnSpeed, m_MovingTurnSpeed, m_ForwardAmount);
-			transform.Rotate(0, m_TurnAmount * turnSpeed * Time.deltaTime* 0.6f, 0);
+			transform.Rotate(0, m_TurnAmount * turnSpeed * Time.deltaTime* 0.5f, 0);
 		}
 
 

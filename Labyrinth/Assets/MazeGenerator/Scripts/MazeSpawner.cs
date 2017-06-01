@@ -69,25 +69,25 @@ public class MazeSpawner : MonoBehaviour
                 if (cell.WallRight)
                 {
                     tmp = Instantiate(Wall, new Vector3(x + CellWidth / 2, 0, z) + Wall.transform.position, Quaternion.Euler(0, 90, 0)) as GameObject;// right
-                    tmp.transform.localScale = new Vector3(CellWidth/1.1f, CellHeight*2, 1f);
+                    tmp.transform.localScale = new Vector3(CellWidth/1.1f, CellHeight*2, 1.001f);
                     tmp.transform.parent = transform;
                 }
                 if (cell.WallFront)
                 {
                     tmp = Instantiate(Wall, new Vector3(x, 0, z + CellHeight / 2) + Wall.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;// front
-                    tmp.transform.localScale = new Vector3(CellWidth/1.1f, CellHeight*2, 1f);
+                    tmp.transform.localScale = new Vector3(CellWidth/1.1f, CellHeight*2, 1.001f);
                     tmp.transform.parent = transform;
                 }
                 if (cell.WallLeft)
                 {
                     tmp = Instantiate(Wall, new Vector3(x - CellWidth / 2, 0, z) + Wall.transform.position, Quaternion.Euler(0, 270, 0)) as GameObject;// left
-                    tmp.transform.localScale = new Vector3(CellWidth/1.1f, CellHeight*2, 1f);
+                    tmp.transform.localScale = new Vector3(CellWidth/1.1f, CellHeight*2, 1.001f);
                     tmp.transform.parent = transform;
                 }
                 if (cell.WallBack)
                 {
                     tmp = Instantiate(Wall, new Vector3(x, 0, z - CellHeight / 2) + Wall.transform.position, Quaternion.Euler(0, 180, 0)) as GameObject;// back
-                    tmp.transform.localScale = new Vector3(CellWidth/1.1f, CellHeight*2, 1f);
+                    tmp.transform.localScale = new Vector3(CellWidth/1.1f, CellHeight*2, 1.001f);
                     tmp.transform.parent = transform;
                 }
                 if (cell.IsGoal && GoalPrefab != null)
