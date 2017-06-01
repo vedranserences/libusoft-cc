@@ -13,13 +13,13 @@ public class RecursiveMazeGenerator : BasicMazeGenerator {
 
 	public override void GenerateMaze ()
 	{
-		VisitCell (0, 0, Direction.Start);
+		VisitCell (0, 0, Direction.Start,0);
+		this.SetEnd();		
 	}
 
-	private void VisitCell(int row, int column, Direction moveMade){
+	private void VisitCell(int row, int column, Direction moveMade,int distance){
 		Direction[] movesAvailable = new Direction[4];
 		int movesAvailableCount = 0;
-
 		do{
 			movesAvailableCount = 0;
 
@@ -57,22 +57,23 @@ public class RecursiveMazeGenerator : BasicMazeGenerator {
 			}
 
 			GetMazeCell(row,column).IsVisited = true;
+			GetMazeCell(row,column).distance = distance;
 
 			if(movesAvailableCount > 0){
 				switch (movesAvailable[Random.Range(0,movesAvailableCount)]) {
 				case Direction.Start:
 					break;
 				case Direction.Right:
-					VisitCell(row,column+1,Direction.Right);
+					VisitCell(row,column+1,Direction.Right,++distance);
 					break;
 				case Direction.Front:
-					VisitCell(row+1,column,Direction.Front);
+					VisitCell(row+1,column,Direction.Front,++distance);
 					break;
 				case Direction.Left:
-					VisitCell(row,column-1,Direction.Left);
+					VisitCell(row,column-1,Direction.Left,++distance);
 					break;
 				case Direction.Back:
-					VisitCell(row-1,column,Direction.Back);
+					VisitCell(row-1,column,Direction.Back,++distance);
 					break;
 				}
 			}

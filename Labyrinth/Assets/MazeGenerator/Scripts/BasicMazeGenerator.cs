@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 //<summary>
 //Basic class for maze generation logic
@@ -11,6 +12,7 @@ public abstract class BasicMazeGenerator {
 	private int mMazeRows;
 	private int mMazeColumns;
 	private MazeCell[,] mMaze;
+	public string s;
 
 	public BasicMazeGenerator(int rows, int columns){
 		mMazeRows = Mathf.Abs(rows);
@@ -24,10 +26,44 @@ public abstract class BasicMazeGenerator {
 		mMaze = new MazeCell[rows,columns];
 		for (int row = 0; row < rows; row++) {
 			for(int column = 0; column < columns; column++){
-				mMaze[row,column] = new MazeCell();
+				MazeCell tmp = new MazeCell();
+				if(row==0 && column==0)
+					tmp.IsStart=true;
+				tmp.x=column;
+				tmp.y=row;
+				mMaze[row,column]=tmp;
 			}
 		}
 	}
+
+	public ArrayList GetGoals(){
+		ArrayList goals=new ArrayList();
+		for (int row = 0; row < mMazeRows; row++) {
+			for(int column = 0; column < mMazeColumns; column++){
+				MazeCell tmp = this.GetMazeCell(row,column);
+				if(tmp.IsGoal){
+					goals.Add(tmp);
+				}
+			}
+		}
+		return goals;
+	}
+
+	public void SetEnd(){
+		int maxValue=0;
+		MazeCell end=null;
+		ArrayList goals=this.GetGoals();
+		foreach(MazeCell m in goals){
+			if(m.distance>maxValue){
+				maxValue=m.distance;
+				end=m;
+			}
+		}
+		if(end!=null){
+			end.IsEnd=true;
+		}
+	}
+
 
 	public abstract void GenerateMaze();
 

@@ -18,4 +18,23 @@ public class MazeCell {
 	public bool WallLeft = false;
 	public bool WallBack = false;
 	public bool IsGoal = false;
+	public bool IsStart=false;
+	public bool IsEnd=false;
+
+	public int x;
+	public int y;
+	public int distance=0;
+
+	public int CountWalls(){
+		int i=0;
+		if(WallBack)
+			i++;
+		if(WallFront)
+			i++;
+		if(WallRight)
+			i++;
+		if(WallLeft)
+			i++;
+		return i;
+	}
 }
