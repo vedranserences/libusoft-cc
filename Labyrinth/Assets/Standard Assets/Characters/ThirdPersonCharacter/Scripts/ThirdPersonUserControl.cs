@@ -10,6 +10,11 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private ThirdPersonCharacter m_Character; // A reference to the ThirdPersonCharacter on the object
         private Transform m_Cam;                  // A reference to the main camera in the scenes transform
         private Vector3 m_CamForward;             // The current forward direction of the camera
+
+        private Vector3 m_CamTurnRight;             // The current forward direction of the camera
+
+        public GameObject slimeBall;
+
         private Vector3 m_Move;
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
 
@@ -54,8 +59,19 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             if (m_Cam != null)
             {
                 // calculate camera relative direction to move:
+                
                 m_CamForward = Vector3.Scale(m_Cam.forward, new Vector3(1, 0, 1)).normalized;
-                m_Move = v*m_CamForward + h*m_Cam.right;
+                
+                
+                
+                if(v<0){
+                    m_CamForward = Vector3.Scale(m_Cam.forward, new Vector3(1, 0, 1)).normalized;
+                    m_Move = v*m_CamForward;
+                    
+                }else{
+                    m_Move = v*m_CamForward + h*m_Cam.right;
+                }
+                
             }
             else
             {
@@ -69,6 +85,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
             // pass all parameters to the character control script
             m_Character.Move(m_Move, crouch, m_Jump);
+            if(m_Move.z < 0){
+                Debug.Log(m_Move.z);
+            }
+            
             m_Jump = false;
         }
     }
