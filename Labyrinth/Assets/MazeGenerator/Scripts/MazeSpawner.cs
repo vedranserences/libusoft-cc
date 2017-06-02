@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 //<summary>
 //Game object, that creates maze and instantiates it in scene
 //</summary>
@@ -19,6 +19,8 @@ public class MazeSpawner : MonoBehaviour {
 	public GameObject Floor = null;
 	public GameObject Wall = null;
 	public GameObject Pillar = null;
+
+	public GameObject[] traperinos;
 	public int Rows = 5;
 	public int Columns = 5;
 	public float CellWidth = 5;
@@ -29,6 +31,16 @@ public class MazeSpawner : MonoBehaviour {
 
 	private BasicMazeGenerator mMazeGenerator = null;
 
+	private Vector2 GenerateCoordsForTrap(){
+		int x=Random.Range(0,Columns);
+		int y=Random.Range(0,Rows);
+		while(mMazeGenerator.GetMazeCell(y,x).IsGoal || mMazeGenerator.GetMazeCell(y,x).IsStart || mMazeGenerator.GetMazeCell(y,x).IsEnd){
+				x=Random.Range(0,Columns);
+				y=Random.Range(0,Rows);
+			}
+		return new Vector2(x,y);
+
+	}
 	void Start () {
 		if (!FullRandom) {
 			// Random.seed = RandomSeed;
@@ -52,16 +64,15 @@ public class MazeSpawner : MonoBehaviour {
 			break;
 		}
 		mMazeGenerator.GenerateMaze ();
-		Vector2[] traps=new Vector2[NumberOfTraps];
+		HashSet <Vector2> traps=new HashSet<Vector2>();
 		for(int i=0;i<NumberOfTraps;i++){
-			int x=Random.Range(0,Columns);
-			int y=Random.Range(0,Rows);
-			while(mMazeGenerator.GetMazeCell(y,x).IsGoal || mMazeGenerator.GetMazeCell(y,x).IsStart || mMazeGenerator.GetMazeCell(y,x).IsEnd){
-				x=Random.Range(0,Columns);
-				y=Random.Range(0,Rows);
+			while(true){
+				if(traps.Add(GenerateCoordsForTrap()))
+					break;
 			}
-			traps[i]=new Vector2(x,y);
 		}
+
+
 		
 
 		for (int row = 0; row < Rows; row++) {
@@ -83,7 +94,83 @@ public class MazeSpawner : MonoBehaviour {
 
 				foreach(Vector2 v in traps){
 					if((int)v.x==column && (int)v.y==row){
-						tmp.GetComponent<Renderer>().material.color=Color.red;
+						GameObject tempTrap = traperinos[Random.Range(0,traperinos.Length)];
+						GameObject tmp2=Instantiate(tempTrap, new Vector3(x, 0, z), Quaternion.Euler(0,0,0));
+						if(tmp2.tag=="NeedleTrap"){
+							tmp2.transform.position=new Vector3(tmp2.transform.position.x,-0.37f,tmp2.transform.position.z);
+						}
+						else if(tmp2.tag=="TrapCutter"){
+							tmp2.transform.position=new Vector3(tmp2.transform.position.x,-0.37f,tmp2.transform.position.z);
+						}
+						else if(tmp2.tag=="SpearTrap"){
+							if(cell.WallLeft){
+								tmp2.transform.position=new Vector3(tmp2.transform.position.x-4.5f,tmp2.transform.position.y+5,tmp2.transform.position.z);
+								tmp2.transform.rotation= Quaternion.Euler(90,90,0);
+								
+							} else if(cell.WallRight){
+								tmp2.transform.position=new Vector3(tmp2.transform.position.x+4.5f,tmp2.transform.position.y+5,tmp2.transform.position.z);
+								tmp2.transform.rotation= Quaternion.Euler(-90,90,0);
+								
+							}else if(cell.WallFront){
+								tmp2.transform.position=new Vector3(tmp2.transform.position.x,tmp2.transform.position.y+5,tmp2.transform.position.z+4.5f);
+								tmp2.transform.rotation= Quaternion.Euler(270,0,0);
+								
+							}else if(cell.WallBack){
+								tmp2.transform.position=new Vector3(tmp2.transform.position.x,tmp2.transform.position.y+5,tmp2.transform.position.z-4.5f);
+								tmp2.transform.rotation= Quaternion.Euler(90,90,90);
+								
+							}else{
+								GameObject.Destroy(tmp2);
+								tmp2 = Instantiate(traperinos[0], new Vector3(x, 0, z), Quaternion.Euler(0,0,0));
+								tmp2.transform.position=new Vector3(tmp2.transform.position.x,-0.37f,tmp2.transform.position.z);
+							}
+							
+						}else if(tmp2.tag=="GreatAxeTrap"){
+							if(cell.WallFront && cell.WallBack){
+								GameObject tmp3 = Instantiate(Pillar, new Vector3(x,CellWidth+1f,z),Quaternion.Euler(90,0,0));
+								tmp3.transform.localScale = new Vector3(CellWidth/5,CellWidth,CellWidth/5);
+
+								tmp2.transform.position = tmp3.transform.position;
+								tmp2.transform.localScale = new Vector3(1,2,1);
+								tmp2.transform.rotation =  Quaternion.Euler(0,90,0);
+								
+
+							}else if(cell.WallLeft && cell.WallRight){
+								GameObject tmp3 = Instantiate(Pillar, new Vector3(x,CellWidth+1f,z),Quaternion.Euler(0,0,90));
+								tmp3.transform.localScale = new Vector3(CellWidth/5,CellWidth,CellWidth/5);
+
+								tmp2.transform.position = tmp3.transform.position;
+								tmp2.transform.localScale = new Vector3(1,2,1);
+								tmp2.transform.rotation =  Quaternion.Euler(0,0,0);
+							}else{
+								GameObject.Destroy(tmp2);
+								tmp2 = Instantiate(traperinos[3], new Vector3(x, 0, z), Quaternion.Euler(0,0,0));
+								tmp2.transform.position=new Vector3(tmp2.transform.position.x,-0.37f,tmp2.transform.position.z);
+							}
+							
+						}else if(tmp2.tag=="SawTrap02"){
+							if(cell.WallFront && cell.WallBack){
+								GameObject tmp3 = Instantiate(tmp2, new Vector3(x,CellWidth+1f,z),Quaternion.Euler(90,0,0));
+								tmp3.transform.localScale = new Vector3(CellWidth/5,CellWidth,CellWidth/5);
+
+								tmp2.transform.position = tmp3.transform.position;
+								//tmp2.transform.localScale = new Vector3(1,2,1);
+								tmp2.transform.rotation =  Quaternion.Euler(0,90,0);
+								
+
+							}else if(cell.WallLeft && cell.WallRight){
+								GameObject tmp3 = Instantiate(tmp2, new Vector3(x,CellWidth+1f,z),Quaternion.Euler(0,0,90));
+								tmp3.transform.localScale = new Vector3(CellWidth/5,CellWidth,CellWidth/5);
+
+								tmp2.transform.position = tmp3.transform.position;
+								//tmp2.transform.localScale = new Vector3(1,2,1);
+								tmp2.transform.rotation =  Quaternion.Euler(0,0,0);
+							}else{
+								GameObject.Destroy(tmp2);
+								tmp2 = Instantiate(traperinos[3], new Vector3(x, 0, z), Quaternion.Euler(0,0,0));
+								tmp2.transform.position=new Vector3(tmp2.transform.position.x,-0.37f,tmp2.transform.position.z);
+							}
+						}
 					}
 				}
 				if(cell.WallRight){
