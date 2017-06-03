@@ -27,7 +27,8 @@ public class MazeSpawner : MonoBehaviour {
 	public float CellHeight = 5;
 	public bool AddGaps = true;
 	public GameObject GoalPrefab = null;
-	public int NumberOfTraps=5;
+	[Range(0,0.5f)]
+	public float TrapDensity=0.1f;
 
 	private BasicMazeGenerator mMazeGenerator = null;
 
@@ -41,6 +42,21 @@ public class MazeSpawner : MonoBehaviour {
 		return new Vector2(x,y);
 
 	}
+
+	private GameObject GetEasyTrap(){
+		GameObject trap=null;
+		int i=Random.Range(0,2);
+			foreach(GameObject go in traperinos){
+				if(go.tag=="NeedleTrap" && i%2==0){
+					trap=go;
+				}
+				else if(go.tag=="TrapCutter" && i%2==1){
+					trap=go;
+				}
+			}
+		return trap;
+	}
+
 	void Start () {
 		if (!FullRandom) {
 			// Random.seed = RandomSeed;
@@ -65,15 +81,13 @@ public class MazeSpawner : MonoBehaviour {
 		}
 		mMazeGenerator.GenerateMaze ();
 		HashSet <Vector2> traps=new HashSet<Vector2>();
+		int NumberOfTraps=(int)(Rows*Columns*TrapDensity);
 		for(int i=0;i<NumberOfTraps;i++){
 			while(true){
 				if(traps.Add(GenerateCoordsForTrap()))
 					break;
 			}
 		}
-
-
-		
 
 		for (int row = 0; row < Rows; row++) {
 			for(int column = 0; column < Columns; column++){
@@ -121,7 +135,7 @@ public class MazeSpawner : MonoBehaviour {
 								
 							}else{
 								GameObject.Destroy(tmp2);
-								tmp2 = Instantiate(traperinos[0], new Vector3(x, 0, z), Quaternion.Euler(0,0,0));
+								tmp2 = Instantiate(GetEasyTrap(), new Vector3(x, 0, z), Quaternion.Euler(0,0,0));
 								tmp2.transform.position=new Vector3(tmp2.transform.position.x,-0.37f,tmp2.transform.position.z);
 							}
 							
@@ -144,30 +158,30 @@ public class MazeSpawner : MonoBehaviour {
 								tmp2.transform.rotation =  Quaternion.Euler(0,0,0);
 							}else{
 								GameObject.Destroy(tmp2);
-								tmp2 = Instantiate(traperinos[3], new Vector3(x, 0, z), Quaternion.Euler(0,0,0));
+								tmp2 = Instantiate(GetEasyTrap(), new Vector3(x, 0, z), Quaternion.Euler(0,0,0));
 								tmp2.transform.position=new Vector3(tmp2.transform.position.x,-0.37f,tmp2.transform.position.z);
 							}
 							
 						}else if(tmp2.tag=="SawTrap02"){
 							if(cell.WallFront && cell.WallBack){
-								GameObject tmp3 = Instantiate(tmp2, new Vector3(x,CellWidth+1f,z),Quaternion.Euler(90,0,0));
-								tmp3.transform.localScale = new Vector3(CellWidth/5,CellWidth,CellWidth/5);
+								GameObject tmp3 = Instantiate(tmp2, new Vector3(x+2.5f,0,z+2.5f),Quaternion.Euler(0,0,0));
+								tmp3.transform.localScale = new Vector3(1,1,1.25f);
 
-								tmp2.transform.position = tmp3.transform.position;
-								//tmp2.transform.localScale = new Vector3(1,2,1);
-								tmp2.transform.rotation =  Quaternion.Euler(0,90,0);
+								tmp2.transform.position = new Vector3(tmp2.transform.position.x-2.5f,tmp2.transform.position.y,tmp2.transform.position.z-2.5f);
+								tmp2.transform.localScale = new Vector3(1,1,1.25f);
+								tmp2.transform.rotation =  Quaternion.Euler(0,180,0);
 								
 
 							}else if(cell.WallLeft && cell.WallRight){
-								GameObject tmp3 = Instantiate(tmp2, new Vector3(x,CellWidth+1f,z),Quaternion.Euler(0,0,90));
-								tmp3.transform.localScale = new Vector3(CellWidth/5,CellWidth,CellWidth/5);
+								GameObject tmp3 = Instantiate(tmp2, new Vector3(x-2.5f,0,z-2.5f),Quaternion.Euler(0,-90,0));
+								tmp3.transform.localScale = new Vector3(1,1,1.25f);
 
-								tmp2.transform.position = tmp3.transform.position;
-								//tmp2.transform.localScale = new Vector3(1,2,1);
-								tmp2.transform.rotation =  Quaternion.Euler(0,0,0);
+								tmp2.transform.position = new Vector3(tmp2.transform.position.x+2.5f,tmp2.transform.position.y,tmp2.transform.position.z+2.5f);
+								tmp2.transform.localScale = new Vector3(1,1,1.25f);
+								tmp2.transform.rotation =  Quaternion.Euler(0,90,0);
 							}else{
 								GameObject.Destroy(tmp2);
-								tmp2 = Instantiate(traperinos[3], new Vector3(x, 0, z), Quaternion.Euler(0,0,0));
+								tmp2 = Instantiate(GetEasyTrap(), new Vector3(x, 0, z), Quaternion.Euler(0,0,0));
 								tmp2.transform.position=new Vector3(tmp2.transform.position.x,-0.37f,tmp2.transform.position.z);
 							}
 						}
