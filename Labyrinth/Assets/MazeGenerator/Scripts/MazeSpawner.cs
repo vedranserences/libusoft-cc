@@ -19,6 +19,7 @@ public class MazeSpawner : MonoBehaviour {
 	public GameObject Floor = null;
 	public GameObject Wall = null;
 	public GameObject Pillar = null;
+	public GameObject Teleporter=null;
 
 	public GameObject[] traperinos;
 	public int Rows = 5;
@@ -103,7 +104,8 @@ public class MazeSpawner : MonoBehaviour {
 					tmp.GetComponent<Renderer>().material.color=Color.green;
 				}
 				if(cell.IsEnd){
-					tmp.GetComponent<Renderer>().material.color=Color.black;
+					GameObject tmp2=Instantiate(Teleporter,new Vector3(x,0,z),Quaternion.Euler(-90,0,0));
+					tmp2.transform.localScale=new Vector3(1,1,1);
 				}
 
 				foreach(Vector2 v in traps){
