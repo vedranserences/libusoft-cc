@@ -1,0 +1,50 @@
+.player-statistic {
+    list-style: none;
+    color: white;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+hr {
+    width: 650px;
+    margin: 10px 0px;
+    border: 1px solid #1CABF8;
+}
+.leaderboard-list > li:nth-child(n+4)> .player-username {
+margin-left: 33%;
+}
+
+.player-place {
+    float: left;
+}
+
+.player-username {
+    float: left;
+    margin-left: 35%;
+    width: 200px;
+    text-align: center;
+}
+
+.player-points {
+    float: right;
+}
+
+.first-place, .second-place, .third-place {
+    position: absolute;
+    height: 48px;
+    width: 48px;
+    top: -12px;
+    left: -10px;
+}
+
+.second-place {
+    top: 41px;
+}
+
+
+.third-place {
+    top: 93px;
+}
+
+
+
