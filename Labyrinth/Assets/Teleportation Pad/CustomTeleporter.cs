@@ -40,6 +40,9 @@ public class CustomTeleporter : MonoBehaviour
 	//without disabling the entire script, so receiving objects still works
 	public bool teleportPadOn = true;
 
+	public GameObject[] objects;
+	public GameObject sceneMan;
+
 	void Start ()
 	{
 		//Set the countdown ready to the time you chose
@@ -53,8 +56,10 @@ public class CustomTeleporter : MonoBehaviour
 		if(inside)
 		{
 			//if that object hasnt just arrived from another pad, teleport it
-			if(!arrived && teleportPadOn)
-			Teleport();
+			if(!arrived && teleportPadOn){
+				Teleport();
+			}
+			
 		}
 	}
 
@@ -182,6 +187,7 @@ public class CustomTeleporter : MonoBehaviour
 
 	void OnTriggerEnter(Collider trig)
 	{
+		GetComponent<ChangeScene>().GoToScene("EndScene_02");
 		//when an object enters the trigger
 		//if you set a tag in the inspector, check if an object has that tag
 		//otherwise the pad will take in and teleport any object
