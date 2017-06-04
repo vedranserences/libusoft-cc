@@ -1,0 +1,138 @@
+* {
+    font-family: 'Chewy', cursive;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-image: url('');
+}
+
+header {
+    text-align: center;
+}
+
+#title {
+    font-size: 120px;
+    letter-spacing: 10px;
+    color: #56AE45;
+    /*text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;*/
+}
+
+.letter-a,
+.letter-c,
+.letter-e,
+.letter-p,
+.letter-M,
+.letter-s,
+.letter-z {
+    position: relative;
+}
+
+.letter-M {
+    color: #0099FF;
+}
+
+.letter-a {
+    color: #FF8056;
+    top: 20px;
+}
+
+.a2 {
+    top: -10px;
+}
+
+.letter-z {
+    color: #56AE45;
+}
+
+.letter-e {
+    color: #ED558A;
+     top: 25px;
+}
+
+.letter-s {
+    color: white;
+    top: -10px;
+}
+
+.letter-c {
+    color: #50C5B7;
+    top: 25px;
+}
+
+.letter-p {
+    color: #E14141;
+}
+
+main {
+    position: relative;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+}
+.earth-image {
+    position: relative;
+    top: 100px;
+}
+
+.nlo-large {
+    position: absolute;
+    top: 10px;
+}
+
+.nlo-medium {
+    position: absolute;
+    top: 200px;
+    right: 300px;
+    height: 54px;
+    width: 112px;
+}
+.nlo-small {
+    position: absolute;
+    top: 400px;
+    right: 500px;
+        height: 27px;
+    width: 56px;
+}
+
+.hvr-wobble-top:hover {
+    cursor: default;
+}
+#leaderboard-button-container {
+    position: relative;
+    margin-top: 40px;
+    display: inline-block;
+    padding: 20px 40px;
+    background-color: #6DAC1D;
+    border-radius: 400px;
+    border: 5px solid #333A46;
+    transition: all .2s ease-in-out;
+}
+
+#leaderboard-title {
+    font-size: 65px;
+    margin: 0;
+    color: white;
+    letter-spacing: 4px;
+    text-shadow: -2px 0 #4A4A4A, 0 2px #4A4A4A, 2px 0 #4A4A4A, 0 -2px #4A4A4A;
+}
+
+#leaderboard-button-container:hover {
+    background-color: #3FB8AF;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+@media only screen and (max-width: 442px) {
+    body {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        background-image: url('');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+}

@@ -1,0 +1,32 @@
+* {
+    font-family: 'Chewy', cursive;
+}
+
+body {
+  background-color: #19232D;
+}
+
+h1 {
+  text-align: center;
+  position: relative;
+  font-size: 100px;
+  color: white;
+  margin: 0px;
+  margin-top: 80px;
+}
+
+.biceps-lijevo {
+  position: absolute;
+  left: 27%;
+  top: 50px;
+  height: 256px;
+  width: 256px;
+}
+
+.biceps-desno {
+  position: absolute;
+  right: 27%;
+  top: 50px;
+  height: 256px;
+  width: 256px;
+}
