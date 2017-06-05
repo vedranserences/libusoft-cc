@@ -20,5 +20,8 @@ public class ChangeHealthBar : MonoBehaviour {
             image.sprite = emptyHeart;
         }
         spriteIndex += increment;
+        if(spriteIndex<0){
+            GameObject.Find("SceneManager").GetComponent<ChangeScene>().GoToScene("EndScene_01");
+        }
     }
 }

@@ -120,13 +120,11 @@ public class CharacterControl : MonoBehaviour
         if (Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, m_GroundCheckDistance))
         {
             m_GroundNormal = hitInfo.normal;
-            Debug.Log("ON THE FLOOR");
             m_IsGrounded = true;
         }
         else
         {
             m_IsGrounded = false;
-            Debug.Log("AIR");
             m_GroundNormal = Vector3.up;
         }
     }
