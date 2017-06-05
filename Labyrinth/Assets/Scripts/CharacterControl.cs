@@ -21,9 +21,12 @@ public class CharacterControl : MonoBehaviour
     [Range(1f,4f)]
     public float m_GravityMultiplier=2f;
 
+    private Animator mummyAnimation;
+
     private void Awake ()
     {
         m_Rigidbody = GetComponent<Rigidbody> ();
+        mummyAnimation = GetComponent<Animator>();
     }
 
 
@@ -80,6 +83,7 @@ public class CharacterControl : MonoBehaviour
     {
         // Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
         Vector3 movement = transform.forward * m_MovementInputValue * m_Speed * Time.deltaTime;
+        Vector3 noMovement = new Vector3(0,0,0);
         CheckGroundStatus();
         if(m_Jump && m_IsGrounded){
             m_Rigidbody.velocity=new Vector3(m_Rigidbody.velocity.x,m_JumpPower,m_Rigidbody.velocity.z);
@@ -92,7 +96,14 @@ public class CharacterControl : MonoBehaviour
 
 			//m_GroundCheckDistance = m_Rigidbody.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.01f;
         }
-        m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
+        if(movement.Equals(noMovement)){
+            mummyAnimation.SetBool("isRun", false);
+        }else{
+            mummyAnimation.SetBool("isRun", true);
+            m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
+        }
+        
+        
     }
 
 
@@ -128,5 +139,6 @@ public class CharacterControl : MonoBehaviour
             m_GroundNormal = Vector3.up;
         }
     }
+    
 
 }
