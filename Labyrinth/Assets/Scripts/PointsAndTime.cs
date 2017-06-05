@@ -7,6 +7,7 @@ public class PointsAndTime : MonoBehaviour {
 
 	public static float finalTime;
 	public static float finalScore;
+	private float maxScore=1000;
 
 	private Scene currentScene;
 
@@ -19,11 +20,11 @@ public class PointsAndTime : MonoBehaviour {
 	void Update () {
 		finalTime = Time.timeSinceLevelLoad;
 		if(currentScene.name.Contains("Easy")){
-			finalScore = 1000 - finalTime;
+			finalScore = maxScore* 100 /finalTime;
 		} else if (currentScene.name.Contains("Medium")) {
-			finalScore = 1000 - finalTime/2;
+			finalScore = maxScore* 500 /finalTime;
 		} else if (currentScene.name.Contains("Hard")) {
-			finalScore = 1000 - finalTime/3;
+			finalScore = maxScore* 5000 /finalTime;
 		}
 		
 	}

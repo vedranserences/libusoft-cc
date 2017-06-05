@@ -10,7 +10,7 @@ public class ScoreShower : MonoBehaviour {
 
 	void Start(){
 		scoreText = GetComponent<Text>();
-		scoreText.text = PointsAndTime.finalScore.ToString("n2");
+		scoreText.text = PointsAndTime.finalScore.ToString("F");
 	}
 	
 }

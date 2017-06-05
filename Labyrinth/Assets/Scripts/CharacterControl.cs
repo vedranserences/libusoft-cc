@@ -12,6 +12,8 @@ public class CharacterControl : MonoBehaviour
     private float m_MovementInputValue;         // The current value of the movement input.
     private float m_TurnInputValue;             // The current value of the turn input.
 
+    private GameObject currentFloor;
+
     bool m_IsGrounded;
 	float m_OrigGroundCheckDistance=0.1f;
     Vector3 m_GroundNormal;
@@ -22,6 +24,9 @@ public class CharacterControl : MonoBehaviour
     public float m_GravityMultiplier=2f;
 
     private Animator mummyAnimation;
+
+    public int numberOfTags;
+
 
     private void Awake ()
     {
@@ -67,6 +72,17 @@ public class CharacterControl : MonoBehaviour
             {
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
+        if(CrossPlatformInputManager.GetButtonDown("Use")&& numberOfTags>0){
+            GameObject[] floors=GameObject.FindGameObjectsWithTag("Floor");
+            foreach(GameObject floor in floors){
+                Rect rect=new Rect(floor.transform.position.x-5,floor.transform.position.z-5,10,10);
+                if(rect.Contains(new Vector2(transform.position.x,transform.position.z))){
+                    currentFloor=floor;
+                }
+            }
+            currentFloor.GetComponent<Renderer>().material.color=Color.magenta;
+            numberOfTags--;
+        }
 
     }
 

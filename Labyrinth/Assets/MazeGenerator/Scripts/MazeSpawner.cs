@@ -177,19 +177,19 @@ public class MazeSpawner : MonoBehaviour {
 						}else if(tmp2.tag=="SawTrap02"){
 							if(cell.WallFront && cell.WallBack){
 								GameObject tmp3 = Instantiate(tmp2, new Vector3(x+2.5f,0,z+2.5f),Quaternion.Euler(0,0,0));
-								tmp3.transform.localScale = new Vector3(1,1,1.25f);
+								tmp3.transform.localScale = new Vector3(1,1.5f,1.25f);
 
 								tmp2.transform.position = new Vector3(tmp2.transform.position.x-2.5f,tmp2.transform.position.y,tmp2.transform.position.z-2.5f);
-								tmp2.transform.localScale = new Vector3(1,1,1.25f);
+								tmp2.transform.localScale = new Vector3(1,1.5f,1.25f);
 								tmp2.transform.rotation =  Quaternion.Euler(0,180,0);
 								
 
 							}else if(cell.WallLeft && cell.WallRight){
 								GameObject tmp3 = Instantiate(tmp2, new Vector3(x-2.5f,0,z-2.5f),Quaternion.Euler(0,-90,0));
-								tmp3.transform.localScale = new Vector3(1,1,1.25f);
+								tmp3.transform.localScale = new Vector3(1,1.5f,1.25f);
 
 								tmp2.transform.position = new Vector3(tmp2.transform.position.x+2.5f,tmp2.transform.position.y,tmp2.transform.position.z+2.5f);
-								tmp2.transform.localScale = new Vector3(1,1,1.25f);
+								tmp2.transform.localScale = new Vector3(1,1.5f,1.25f);
 								tmp2.transform.rotation =  Quaternion.Euler(0,90,0);
 							}else{
 								GameObject.Destroy(tmp2);

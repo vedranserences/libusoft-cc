@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class SendData : MonoBehaviour {
 
+    public string address;
+    public string port;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -20,13 +23,20 @@ public class SendData : MonoBehaviour {
       try
       {  
           string ourPostData = "{ \"username\": \"" + SaveUsername.username + "\", \"points\": " + ScoreShower.scoreText.text + ", \"time\": " + TimeShower.timeText.text + "}";
-		  Debug.Log(ourPostData);
           Dictionary<string,string> headers = new Dictionary<string, string>();
           headers.Add("Content-Type", "application/json");
           //byte[] b = System.Text.Encoding.UTF8.GetBytes();
           byte[] pData = System.Text.Encoding.ASCII.GetBytes(ourPostData.ToCharArray());
           ///POST by IIS hosting...
-          WWW api = new WWW("http://192.168.0.18:4200/game", pData, headers);
+          if(string.IsNullOrEmpty(address)){
+              address="bornaivankovic.com";
+          }
+          if(string.IsNullOrEmpty(port)){
+              port="5003";
+          }
+          var hostname=address+":"+port;
+          Debug.Log(ourPostData);
+          WWW api = new WWW("http://"+hostname+"/game", pData, headers);
           ///GET by IIS hosting...
           ///WWW api = new WWW("http://192.168.1.120/si_aoi/api/total?dynamix={\"plan\":\"TESTA02\"");
       }
