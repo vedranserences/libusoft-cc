@@ -116,7 +116,7 @@ public class MazeSpawner : MonoBehaviour {
 							tmp2.transform.position=new Vector3(tmp2.transform.position.x,-0.37f,tmp2.transform.position.z);
 						}
 						else if(tmp2.tag=="TrapCutter"){
-							tmp2.transform.position=new Vector3(tmp2.transform.position.x,-0.37f,tmp2.transform.position.z);
+							tmp2.transform.position=new Vector3(tmp2.transform.position.x,-0.70f,tmp2.transform.position.z);
 						}
 						else if(tmp2.tag=="SpearTrap"){
 							if(cell.WallLeft){
@@ -138,12 +138,17 @@ public class MazeSpawner : MonoBehaviour {
 							}else{
 								GameObject.Destroy(tmp2);
 								tmp2 = Instantiate(GetEasyTrap(), new Vector3(x, 0, z), Quaternion.Euler(0,0,0));
-								tmp2.transform.position=new Vector3(tmp2.transform.position.x,-0.37f,tmp2.transform.position.z);
+								if(tmp2.tag=="NeedleTrap"){
+									tmp2.transform.position=new Vector3(tmp2.transform.position.x,-0.37f,tmp2.transform.position.z);
+								}
+								else if(tmp2.tag=="TrapCutter"){
+									tmp2.transform.position=new Vector3(tmp2.transform.position.x,-0.70f,tmp2.transform.position.z);
+								}
 							}
 							
 						}else if(tmp2.tag=="GreatAxeTrap"){
 							if(cell.WallFront && cell.WallBack){
-								GameObject tmp3 = Instantiate(Pillar, new Vector3(x,CellWidth+1f,z),Quaternion.Euler(90,0,0));
+								GameObject tmp3 = Instantiate(Pillar, new Vector3(x,CellWidth,z),Quaternion.Euler(90,0,0));
 								tmp3.transform.localScale = new Vector3(CellWidth/5,CellWidth,CellWidth/5);
 
 								tmp2.transform.position = tmp3.transform.position;
@@ -161,7 +166,12 @@ public class MazeSpawner : MonoBehaviour {
 							}else{
 								GameObject.Destroy(tmp2);
 								tmp2 = Instantiate(GetEasyTrap(), new Vector3(x, 0, z), Quaternion.Euler(0,0,0));
-								tmp2.transform.position=new Vector3(tmp2.transform.position.x,-0.37f,tmp2.transform.position.z);
+								if(tmp2.tag=="NeedleTrap"){
+									tmp2.transform.position=new Vector3(tmp2.transform.position.x,-0.37f,tmp2.transform.position.z);
+								}
+								else if(tmp2.tag=="TrapCutter"){
+									tmp2.transform.position=new Vector3(tmp2.transform.position.x,-0.70f,tmp2.transform.position.z);
+								}
 							}
 							
 						}else if(tmp2.tag=="SawTrap02"){
@@ -184,7 +194,12 @@ public class MazeSpawner : MonoBehaviour {
 							}else{
 								GameObject.Destroy(tmp2);
 								tmp2 = Instantiate(GetEasyTrap(), new Vector3(x, 0, z), Quaternion.Euler(0,0,0));
-								tmp2.transform.position=new Vector3(tmp2.transform.position.x,-0.37f,tmp2.transform.position.z);
+								if(tmp2.tag=="NeedleTrap"){
+									tmp2.transform.position=new Vector3(tmp2.transform.position.x,-0.37f,tmp2.transform.position.z);
+								}
+								else if(tmp2.tag=="TrapCutter"){
+									tmp2.transform.position=new Vector3(tmp2.transform.position.x,-0.70f,tmp2.transform.position.z);
+								}
 							}
 						}
 					}
