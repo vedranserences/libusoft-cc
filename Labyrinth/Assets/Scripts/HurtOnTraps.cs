@@ -5,10 +5,12 @@ using UnityEngine;
 public class HurtOnTraps : MonoBehaviour {
 
 	private Rigidbody rigidbody;
+	private AudioSource hurtSound;
 
 	// Use this for initialization
 	void Start () {
 		rigidbody = GetComponent<Rigidbody>();
+		hurtSound = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -21,10 +23,12 @@ public class HurtOnTraps : MonoBehaviour {
 			rigidbody.velocity = Vector3.zero;
 			Debug.Log("got hit");
 			FindObjectOfType<ChangeHealthBar>().ChangeHBar(-1);
+			hurtSound.Play();
 		}
 
 		if(collision.gameObject.tag.Contains("Trap")){
 			rigidbody.velocity = Vector3.zero;
+			hurtSound.Play();
 		}
 
 		if(collision.gameObject.tag.Contains("wall")){
