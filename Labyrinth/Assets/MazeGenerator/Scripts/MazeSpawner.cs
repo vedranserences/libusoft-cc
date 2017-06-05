@@ -148,10 +148,10 @@ public class MazeSpawner : MonoBehaviour {
 							
 						}else if(tmp2.tag=="GreatAxeTrap"){
 							if(cell.WallFront && cell.WallBack){
-								GameObject tmp3 = Instantiate(Pillar, new Vector3(x,CellWidth,z),Quaternion.Euler(90,0,0));
+								GameObject tmp3 = Instantiate(Pillar, new Vector3(x,CellWidth+1f,z),Quaternion.Euler(90,0,0));
 								tmp3.transform.localScale = new Vector3(CellWidth/5,CellWidth,CellWidth/5);
 
-								tmp2.transform.position = tmp3.transform.position;
+								tmp2.transform.position = new Vector3(tmp3.transform.position.x,tmp3.transform.position.y-1f,tmp3.transform.position.z);
 								tmp2.transform.localScale = new Vector3(1,2,1);
 								tmp2.transform.rotation =  Quaternion.Euler(0,90,0);
 								
